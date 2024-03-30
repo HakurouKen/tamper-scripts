@@ -1,0 +1,6 @@
+{
+  "name": "force-landscape-video",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Force full screen video to play in landscape."
+}

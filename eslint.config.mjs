@@ -7,5 +7,8 @@ export default buildEslintConfig(
     rules: {
       'userscripts/require-version': 'off'
     }
+  },
+  {
+    ignores: ['dist/**']
   }
 );

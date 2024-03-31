@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Some useful tamper/grease scripts.",
   "scripts": {
+    "prepare": "husky",
     "build": "tsx scripts/build build",
     "watch": "tsx scripts/build watch",
     "serve": "http-server dist --host=0.0.0.0"
@@ -23,6 +24,8 @@
     "@types/node": "^20.11.30",
     "eslint": "^8.57.0",
     "eslint-plugin-userscripts": "^0.5.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "rollup": "^4.13.2",
     "tslib": "^2.6.2",
@@ -30,9 +33,14 @@
     "tsx": "^4.7.1",
     "typescript": "^5.4.3"
   },
-  "prettier": "@hakurouken/prettier-config",
   "dependencies": {
     "@types/tampermonkey": "^5.0.2",
     "http-server": "^14.1.1"
+  },
+  "prettier": "@hakurouken/prettier-config",
+  "lint-staged": {
+    "*.{ts,js}": [
+      "eslint --fix"
+    ]
   }
 }

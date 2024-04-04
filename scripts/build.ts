@@ -34,12 +34,29 @@ async function createReplacement(pkg: string) {
   };
 }
 
+const USERSCRIPT_RE =
+  /\/\/\s?==UserScript==(?:[\s\S]*?)\/\/\s*==\/UserScript==(?:\s*?)\n/m;
+
+function createUserScriptPlugin(): rollup.Plugin {
+  return {
+    name: 'rollup-plugin-userscript',
+    renderChunk(code) {
+      const matched = code.match(USERSCRIPT_RE);
+      if (!matched) {
+        return code;
+      }
+      return `${matched[0]}\n${code.replace(USERSCRIPT_RE, '')}`;
+    }
+  };
+}
+
 async function createInputOptions(pkg: string): Promise<rollup.InputOptions> {
   const replaceValues = await createReplacement(pkg);
 
   return {
     input: [path.join(__dirname, '..', 'packages', pkg, 'src/index.user.ts')],
     plugins: [
+      createUserScriptPlugin(),
       replace({ preventAssignment: true, values: replaceValues }),
       typescript()
     ]

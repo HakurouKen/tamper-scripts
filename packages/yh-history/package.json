@@ -1,0 +1,11 @@
+{
+  "name": "yh-history",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Add history for ntdm-liked website.",
+  "keywords": [
+    "yinghua",
+    "yhdm",
+    "ntdm"
+  ]
+}

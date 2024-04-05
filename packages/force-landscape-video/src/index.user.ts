@@ -6,8 +6,6 @@
 // @author __AUTHOR__
 // @homepage __HOMEPAGE__
 // @homepageURL __HOMEPAGE__
-// @updateURL __UPDATE_URL__
-// @downloadURL __DOWNLOAD_URL__
 // @supportURL __SUPPORT_URL__
 // @run-at document-start
 // @noframes

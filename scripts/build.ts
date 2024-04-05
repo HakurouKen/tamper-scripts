@@ -19,7 +19,6 @@ async function createReplacement(pkg: string) {
 
   const name = packageJson.name || pkg;
   const homepage = packageJson.homepage || `${REPO_URL}/packages/${pkg}`;
-  const dist = `https://cdn.jsdelivr.net/gh/hakurouken/tamper-scripts/dist/${pkg}.js`;
 
   return {
     __NAME__: name,
@@ -28,8 +27,6 @@ async function createReplacement(pkg: string) {
     __DESCRIPTION__: packageJson.description,
     __AUTHOR__: packageJson.author || rootPackageJson.author,
     __HOMEPAGE__: homepage,
-    __UPDATE_URL__: dist,
-    __DOWNLOAD_URL__: dist,
     __SUPPORT_URL__: `${REPO_URL}/issues`
   };
 }

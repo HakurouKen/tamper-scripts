@@ -27,7 +27,8 @@ async function createReplacement(pkg: string) {
     __DESCRIPTION__: packageJson.description,
     __AUTHOR__: packageJson.author || rootPackageJson.author,
     __HOMEPAGE__: homepage,
-    __SUPPORT_URL__: `${REPO_URL}/issues`
+    __SUPPORT_URL__: `${REPO_URL}/issues`,
+    __LICENSE__: packageJson.license || rootPackageJson.license || 'ISC'
   };
 }
 

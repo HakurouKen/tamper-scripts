@@ -4,6 +4,7 @@
 // @version __VERSION__
 // @description __DESCRIPTION__
 // @author __AUTHOR__
+// @license __LICENSE__
 // @homepage __HOMEPAGE__
 // @homepageURL __HOMEPAGE__
 // @supportURL __SUPPORT_URL__

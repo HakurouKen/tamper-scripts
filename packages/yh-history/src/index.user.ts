@@ -8,7 +8,7 @@
 // @homepage __HOMEPAGE__
 // @homepageURL __HOMEPAGE__
 // @supportURL __SUPPORT_URL__
-// @run-at document-start
+// @run-at document-end
 // @grant GM_setValue
 // @grant GM_getValue
 // @match https://www.ntdm9.com/*

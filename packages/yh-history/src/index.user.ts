@@ -1,13 +1,4 @@
 // ==UserScript==
-// @name __NAME__
-// @namespace __NAMESPACE__
-// @version __VERSION__
-// @description __DESCRIPTION__
-// @author __AUTHOR__
-// @license __LICENSE__
-// @homepage __HOMEPAGE__
-// @homepageURL __HOMEPAGE__
-// @supportURL __SUPPORT_URL__
 // @run-at document-end
 // @grant GM_setValue
 // @grant GM_getValue

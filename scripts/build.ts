@@ -1,63 +1,14 @@
-import rollup from 'rollup';
-
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import rollup from 'rollup';
+
 import typescript from '@rollup/plugin-typescript';
-import replace from '@rollup/plugin-replace';
-
-const REPO_URL = `https://github.com/hakurouken/tamper-scripts`;
-
-function readJson(file: string) {
-  return fs.readFile(file, 'utf-8').then(JSON.parse);
-}
-
-async function createReplacement(pkg: string) {
-  const [packageJson, rootPackageJson] = await Promise.all([
-    readJson(path.join('packages', pkg, 'package.json')),
-    readJson('package.json')
-  ]);
-
-  const name = packageJson.name || pkg;
-  const homepage = packageJson.homepage || `${REPO_URL}/packages/${pkg}`;
-
-  return {
-    __NAME__: name,
-    __NAMESPACE__: `hakurouken/tamper-scripts/${name}`,
-    __VERSION__: packageJson.version,
-    __DESCRIPTION__: packageJson.description,
-    __AUTHOR__: packageJson.author || rootPackageJson.author,
-    __HOMEPAGE__: homepage,
-    __SUPPORT_URL__: `${REPO_URL}/issues`,
-    __LICENSE__: packageJson.license || rootPackageJson.license || 'ISC'
-  };
-}
-
-const USERSCRIPT_RE =
-  /\/\/\s?==UserScript==(?:[\s\S]*?)\/\/\s*==\/UserScript==(?:\s*?)\n/m;
-
-function createUserScriptPlugin(): rollup.Plugin {
-  return {
-    name: 'rollup-plugin-userscript',
-    renderChunk(code) {
-      const matched = code.match(USERSCRIPT_RE);
-      if (!matched) {
-        return code;
-      }
-      return `${matched[0]}\n${code.replace(USERSCRIPT_RE, '')}`;
-    }
-  };
-}
+import { createUserScriptPlugin } from './user-script-plugin';
 
 async function createInputOptions(pkg: string): Promise<rollup.InputOptions> {
-  const replaceValues = await createReplacement(pkg);
-
   return {
     input: [path.join(__dirname, '..', 'packages', pkg, 'src/index.user.ts')],
-    plugins: [
-      createUserScriptPlugin(),
-      replace({ preventAssignment: true, values: replaceValues }),
-      typescript()
-    ]
+    plugins: [createUserScriptPlugin(pkg), typescript()]
   };
 }
 
@@ -85,7 +36,9 @@ async function watch(pkg: string) {
   const watcher = rollup.watch({
     ...inputOptions,
     output: [outputOptions],
-    watch: {}
+    watch: {
+      clearScreen: true
+    }
   });
 
   watcher.on('event', (e: any) => {

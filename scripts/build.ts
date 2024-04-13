@@ -2,6 +2,8 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import rollup from 'rollup';
 
+import colors from 'picocolors';
+import dateTime from 'date-time';
 import typescript from '@rollup/plugin-typescript';
 import { createUserScriptPlugin } from './user-script-plugin';
 
@@ -41,8 +43,46 @@ async function watch(pkg: string) {
     }
   });
 
-  watcher.on('event', (e: any) => {
-    e.result?.close();
+  const resolveFilePath = (p: string) => path.relative(process.cwd(), p);
+
+  // @see: https://github.com/rollup/rollup/blob/2fdfe1c3b70c66781ea62a48ae1aaa94ee29f9b7/cli/run/watch-cli.ts#L78
+  watcher.on('event', (event) => {
+    if (event.code === 'START') {
+      console.log(`\u001Bc [${colors.underline(colors.bold(pkg))}]\n`);
+    }
+
+    const outputFile = resolveFilePath(outputOptions.file);
+    if (event.code === 'BUNDLE_START') {
+      let { input } = event;
+      if (typeof input !== 'string') {
+        input = Array.isArray(input)
+          ? input.map(resolveFilePath).join(', ')
+          : Object.values(input as Record<string, string>)
+              .map(resolveFilePath)
+              .join(', ');
+      }
+
+      console.log(
+        colors.cyan(
+          `bundle ${colors.bold(input)} → ${colors.bold(outputFile)}...`
+        )
+      );
+    }
+
+    if (event.code === 'BUNDLE_END') {
+      console.log(
+        colors.green(
+          `created ${colors.bold(outputFile)} in ${colors.bold(event.duration + 'ms')}`
+        )
+      );
+    }
+
+    if (event.code === 'END') {
+      console.log();
+      console.log(`[${dateTime()}]`, 'waiting for changes...');
+    }
+
+    (event as any).result?.close();
   });
 }
 

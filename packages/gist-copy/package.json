@@ -1,0 +1,10 @@
+{
+  "name": "gist-copy",
+  "version": "1.0.0",
+  "description": "Copy gist code with one-click.",
+  "private": true,
+  "keywords": [
+    "gist",
+    "copy"
+  ]
+}

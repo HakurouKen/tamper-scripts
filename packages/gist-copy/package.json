@@ -1,6 +1,6 @@
 {
   "name": "gist-copy",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Copy gist code with one-click.",
   "private": true,
   "keywords": [

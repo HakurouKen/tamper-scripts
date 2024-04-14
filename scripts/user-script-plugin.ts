@@ -117,7 +117,7 @@ async function generateHeader(pkg: string, originalHeader: string) {
     generated += `// @${key} ${value}\n`;
   }
 
-  generated += `// ==/UserScript==\n\n`;
+  generated += `// ==/UserScript==\n`;
 
   return generated;
 }

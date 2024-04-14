@@ -5,6 +5,7 @@
   "description": "Some useful tamper/grease scripts.",
   "scripts": {
     "prepare": "husky",
+    "create": "tsx scripts/create",
     "build": "tsx scripts/build build",
     "watch": "tsx scripts/build watch",
     "serve": "http-server dist --host=0.0.0.0"
@@ -21,19 +22,26 @@
     "@hakurouken/prettier-config": "^0.1.2",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/minimist": "^1.2.5",
     "@types/node": "^20.11.30",
+    "@types/prompts": "^2.4.9",
+    "@types/validate-npm-package-name": "^4.0.2",
     "date-time": "^4.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-userscripts": "^0.5.2",
+    "eta": "^3.4.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.2",
+    "minimist": "^1.2.8",
     "picocolors": "^1.0.0",
     "prettier": "^3.2.5",
+    "prompts": "^2.4.2",
     "rollup": "^4.13.2",
     "tslib": "^2.6.2",
     "tsup": "^8.0.2",
     "tsx": "^4.7.1",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "validate-npm-package-name": "^5.0.0"
   },
   "dependencies": {
     "@types/tampermonkey": "^5.0.2",
